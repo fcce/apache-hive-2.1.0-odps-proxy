@@ -1,108 +1,23 @@
-Apache Hive (TM) @VERSION@
-======================
+# 复用Hive ODBC实现Tableau到MaxCompute的连通
+阿里云文章[利用HiveServer2 Proxy实现MaxCompute与Hive生态工具的互通](https://yq.aliyun.com/articles/61262)，增加了认证配置，默认无认证，详情参考 <https://cwiki.apache.org/confluence/display/Hive/Setting+Up+HiveServer2>
 
-The Apache Hive (TM) data warehouse software facilitates reading, 
-writing, and managing large datasets residing in distributed storage
-using SQL. Built on top of Apache Hadoop (TM), it provides:
+将下载到的压缩包解压，得到名为apache-hive-2.1.0-odps-proxy的文件夹。设置好HIVE_HOME环境变量：
 
-* Tools to enable easy access to data via SQL, thus enabling data 
-  warehousing tasks such as extract/transform/load (ETL), reporting, 
-  and data analysis
+```shell
+cd ./apache-hive-2.1.0-odps-proxy
+export HIVE_HOME=$(pwd)
+echo $HIVE_HOME
+#/tmp/apache-hive-2.1.0-odps-proxy
+```
 
-* A mechanism to impose structure on a variety of data formats
+如果你安装了hadoop请配置环境变量HADOOP_HOME，如果跳过没有安装的，可以使用proxy自带的hadoop依赖，即根目录下的hadoop目录。可以在根目录下执行如下命令：
 
-* Access to files stored either directly in Apache HDFS (TM) or in other
-  data storage systems such as Apache HBase (TM)
+```shell
+cd ./apache-hive-2.1.0-odps-proxy
+export HADOOP_HOME=$(pwd)/hadoop
+```
+完成环境变量的配置之后进入根目录下的conf文件夹，修改hive-site.xml中的相关配置项，样例如下所示，其中每一项的说明已在description标签中有所描述：
 
-* Query execution using Apache Hadoop MapReduce, Apache Tez
-  or Apache Spark frameworks.
+只需要修改odps.accessid、odps.accesskey、odps.project及odps.projects四项即可，其余项可以保留默认配置。如果20000端口已被占用，可以通过hive.server2.thrift.port更换端口配置。
 
-Hive provides standard SQL functionality, including many of the later
-2003 and 2011 features for analytics.  These include OLAP functions, 
-subqueries, common table expressions, and more.  Hive's SQL can also be
-extended with user code via user defined functions (UDFs), user defined
-aggregates (UDAFs), and user defined table functions (UDTFs).
-
-Hive users have a choice of 3 runtimes when executing SQL queries.
-Users can choose between Apache Hadoop MapReduce, Apache Tez or
-Apache Spark frameworks as their execution backend. MapReduce is a
-mature framework that is proven at large scales. However, MapReduce
-is a purely batch framework, and queries using it may experience
-higher latencies (tens of seconds), even over small datasets. Apache
-Tez is designed for interactive query, and has substantially reduced
-overheads versus MapReduce. Apache Spark is a cluster computing
-framework that's built outside of MapReduce, but on top of HDFS,
-with a notion of composable and transformable distributed collection
-of items called Resilient Distributed Dataset (RDD) which allows
-processing and analysis without traditional intermediate stages that
-MapReduce introduces.
-
-Users are free to switch back and forth between these frameworks
-at any time. In each case, Hive is best suited for use cases
-where the amount of data processed is large enough to require a
-distributed system.
-
-Hive is not designed for online transaction processing. It is best used
-for traditional data warehousing tasks.  Hive is designed to maximize
-scalability (scale out with more machines added dynamically to the Hadoop
-cluster), performance, extensibility, fault-tolerance, and
-loose-coupling with its input formats.
-
-
-General Info
-============
-
-For the latest information about Hive, please visit out website at:
-
-  http://hive.apache.org/
-
-
-Getting Started
-===============
-
-- Installation Instructions and a quick tutorial:
-  https://cwiki.apache.org/confluence/display/Hive/GettingStarted
-
-- A longer tutorial that covers more features of HiveQL:
-  https://cwiki.apache.org/confluence/display/Hive/Tutorial
-
-- The HiveQL Language Manual:
-  https://cwiki.apache.org/confluence/display/Hive/LanguageManual
-
-
-Requirements
-============
-
-- Java 1.7 or 1.8
-
-- Hadoop 1.x, 2.x (2.x required for Hive 2.x)
-
-
-Upgrading from older versions of Hive
-=====================================
-
-- Hive @VERSION@ includes changes to the MetaStore schema. If
-  you are upgrading from an earlier version of Hive it is imperative
-  that you upgrade the MetaStore schema by running the appropriate
-  schema upgrade scripts located in the scripts/metastore/upgrade
-  directory.
-
-- We have provided upgrade scripts for MySQL, PostgreSQL, Oracle,
-  Microsoft SQL Server, and Derby databases. If you are using a
-  different database for your MetaStore you will need to provide
-  your own upgrade script.
-
-Useful mailing lists
-====================
-
-1. user@hive.apache.org - To discuss and ask usage questions. Send an
-   empty email to user-subscribe@hive.apache.org in order to subscribe
-   to this mailing list.
-
-2. dev@hive.apache.org - For discussions about code, design and features.
-   Send an empty email to dev-subscribe@hive.apache.org in order to
-   subscribe to this mailing list.
-
-3. commits@hive.apache.org - In order to monitor commits to the source
-   repository. Send an empty email to commits-subscribe@hive.apache.org
-   in order to subscribe to this mailing list.
+完成相关配置之后，请回到根目录，执行`bin/hiveserver2`启动proxy。
