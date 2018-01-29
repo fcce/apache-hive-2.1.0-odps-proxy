@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>hive.execution.engine</name>
+    <value>odps</value>
+    <description>hive执行引擎，此处默认是odps，不需要修改</description>
+  </property>
+  <property>
+    <name>hive.session.impl.classname</name>
+    <value>org.apache.hive.service.cli.session.HiveSessionOdpsImpl</value>
+    <description>HiveSession的的odps plugin实现，不需要修改</description>
+  </property>
+  <property>
+    <name>odps.accessid</name>
+    <value>accessid</value>
+    <description>请修改成你的accessid</description>
+  </property>
+  <property>
+    <name>odps.accesskey</name>
+    <value>accesskey</value>
+    <description>请修改成你的accesskey</description>
+  </property>
+  <property>
+    <name>odps.project</name>
+    <value>project</value>
+    <description>请修改成你的默认project</description>
+  </property>
+  <property>
+    <name>odps.projects</name>
+    <value>project1,project2</value>
+    <description>请修改成你的project列表，如果有多个，请以半角逗号分隔，该配置会在show schemas时生效</description>
+  </property>
+  <property>
+    <name>odps.endpoint</name>
+    <value>https://service.odps.aliyun.com/api</value>
+    <description>默认odps endpoint，不需要修改</description>
+  </property>
+  <property>
+    <name>hive.server2.thrift.port</name>
+    <value>20000</value>
+    <description>HiveServer2 Thrift Server以binary方式启动时服务端口，可以酌情修改，以免端口冲突</description>
+  </property>
+  <property>
+  <name>hive.server2.enable.doAs</name>
+  <value>false</value>
+  </property>
+  <property>
+    <name>hive.server2.use.SSL</name>
+    <value>false</value>
+  </property>
+  <property>
+    <name>hive.server2.authentication</name>
+    <value>NOSASL</value>
+  </property>
+</configuration>
+

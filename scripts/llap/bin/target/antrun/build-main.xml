@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <delete dir="/Users/emerson/projects/hive/llap-server/target/tmp"/>
+  <delete dir="/Users/emerson/projects/hive/llap-server/target/warehouse"/>
+  <mkdir dir="/Users/emerson/projects/hive/llap-server/target/tmp"/>
+  <mkdir dir="/Users/emerson/projects/hive/llap-server/target/warehouse"/>
+  <mkdir dir="/Users/emerson/projects/hive/llap-server/target/tmp/conf"/>
+  <copy todir="/Users/emerson/projects/hive/llap-server/target/tmp/conf/">
+    <fileset dir="/Users/emerson/projects/hive/llap-server/../data/conf/"/>
+  </copy>
+</target>
+</project>
