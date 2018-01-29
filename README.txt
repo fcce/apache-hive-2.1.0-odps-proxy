@@ -1,5 +1,5 @@
 # 复用Hive ODBC实现Tableau到MaxCompute的连通
-阿里云文章[利用HiveServer2 Proxy实现MaxCompute与Hive生态工具的互通](https://yq.aliyun.com/articles/61262)，增加了认证配置，默认无认证，详情参考 <https://cwiki.apache.org/confluence/display/Hive/Setting+Up+HiveServer2>
+阿里云文章 [利用HiveServer2 Proxy实现MaxCompute与Hive生态工具的互通](https://yq.aliyun.com/articles/61262) ，增加了认证配置，默认无认证，详情参考 <https://cwiki.apache.org/confluence/display/Hive/Setting+Up+HiveServer2>
 
 将下载到的压缩包解压，得到名为apache-hive-2.1.0-odps-proxy的文件夹。设置好HIVE_HOME环境变量：
 
