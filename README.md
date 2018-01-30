@@ -16,7 +16,7 @@ echo $HIVE_HOME
 cd ./apache-hive-2.1.0-odps-proxy
 export HADOOP_HOME=$(pwd)/hadoop
 ```
-完成环境变量的配置之后进入根目录下的conf文件夹，修改hive-site.xml中的相关配置项，样例如下所示，其中每一项的说明已在description标签中有所描述：
+完成环境变量的配置之后进入根目录下的conf文件夹，修改hive-site.xml中的相关配置项，其中每一项的说明已在description标签中有所描述：
 
 只需要修改odps.accessid、odps.accesskey、odps.project及odps.projects四项即可，其余项可以保留默认配置。如果20000端口已被占用，可以通过hive.server2.thrift.port更换端口配置。
 
